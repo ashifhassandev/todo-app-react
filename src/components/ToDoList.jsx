@@ -56,14 +56,14 @@ const ToDoList = () => {
   };
 
   const deleteTask = (index) => {
-    setTasks(tasks.filter((_, i) => i !== index));
+    const updatedTasks = tasks.filter((_, i) => i !== index);
 
-    setCompletedTasks((prev) => {
-      const updatedTasks = { ...prev };
-      delete updatedTasks[index];
-      return updatedTasks;
-    });
+	const updatedCompletedTasks = Object.fromEntries(
+		updatedTasks.map((_, i) => [i, completedTasks[i < index ? i : i + 1] || false])
+	);
 
+    setTasks(updatedTasks);
+	setCompletedTasks(updatedCompletedTasks);
     showAlert("success", "Task deleted successfully");
   };
 
