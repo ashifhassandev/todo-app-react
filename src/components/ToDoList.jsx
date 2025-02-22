@@ -10,17 +10,9 @@ const ToDoList = () => {
 	const [editedTask, setEditedTask] = useState("");
 	const [alert, setAlert] = useState(null);
 
-    const handleInputChange = (event) => {
-		setNewTask(event.target.value);
-    };
-
-	const showAlert = (type, message) => {
-		setAlert({ type, message });
-	};
-
-	const closeAlert = () => {
-		setAlert(null);
-	};
+    const handleInputChange = (event) => setNewTask(event.target.value);
+	const showAlert = (type, message) => setAlert({ type, message });
+	const closeAlert = () => setAlert(null);
 
 	const toggleTaskCompletion = (index) => {
 		setCompletedTasks((prev) => ({
@@ -76,42 +68,43 @@ const ToDoList = () => {
     };
 
     const moveTaskUp = (index) => {
-			if (index > 0) {
-				const updatedTasks = [...tasks];
-				const updatedCompletedTasks = { ...completedTasks };
+		if (index > 0) {
+			const updatedTasks = [...tasks];
+			const updatedCompletedTasks = { ...completedTasks };
 
-				[updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1], updatedTasks[index]];
+			[updatedTasks[index], updatedTasks[index - 1]] = [updatedTasks[index - 1], updatedTasks[index]];
 
-				[updatedCompletedTasks[index], updatedCompletedTasks[index - 1]] = [
-					updatedCompletedTasks[index - 1], 
-					updatedCompletedTasks[index]
-				];
+			[updatedCompletedTasks[index], updatedCompletedTasks[index - 1]] = [
+				updatedCompletedTasks[index - 1], 
+				updatedCompletedTasks[index]
+			];
 
-				setTasks(updatedTasks);
-				setCompletedTasks(updatedCompletedTasks);
-			}
+			setTasks(updatedTasks);
+			setCompletedTasks(updatedCompletedTasks);
+		}
     };
 
     const moveTaskDown = (index) => {
-			if (index < tasks.length - 1) {
-				const updatedTasks = [...tasks];
-				const updatedCompletedTasks = { ...completedTasks };
+		if (index < tasks.length - 1) {
+			const updatedTasks = [...tasks];
+			const updatedCompletedTasks = { ...completedTasks };
 
-				[updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]];
+			[updatedTasks[index], updatedTasks[index + 1]] = [updatedTasks[index + 1], updatedTasks[index]];
 
-				[updatedCompletedTasks[index], updatedCompletedTasks[index + 1]] = [
-					updatedCompletedTasks[index + 1], 
-					updatedCompletedTasks[index]
-				];
+			[updatedCompletedTasks[index], updatedCompletedTasks[index + 1]] = [
+				updatedCompletedTasks[index + 1], 
+				updatedCompletedTasks[index]
+			];
 
-				setTasks(updatedTasks);
-				setCompletedTasks(updatedCompletedTasks);
-			}
+			setTasks(updatedTasks);
+			setCompletedTasks(updatedCompletedTasks);
+		}
     };
 
     return(
 		<>
 			{alert && <AlertMessage type={alert.type} message={alert.message} onClose={closeAlert} />}
+
 			<div className="to-do-list">
 				<h1>ToDo List</h1>
 				<input 
@@ -145,31 +138,30 @@ const ToDoList = () => {
 							{task}
 						</span>
                     )}
+
 					<div className="task-buttons">
 					{editingIndex === index ? (
-                            // Show save & cancel buttons when editing
-                            <>
-                                <button onClick={() => saveEditedTask(index)} className="save-button">Save</button>
-                                <button onClick={cancelEditing} className="cancel-button">Cancel</button>
-                            </>
-                        ) : (
-                            // Normal task buttons
-                            <>
-                                <button onClick={() => deleteTask(index)} className="delete-button">
-                                	<i className="bi bi-trash"></i>
-                            	</button>
-                                <button onClick={() => moveTaskUp(index)} className="move-button">⬆️</button>
-                                <button onClick={() => moveTaskDown(index)} className="move-button">⬇️</button>
-								<button onClick={() => editTask(index)} className="edit-button">
-                                	<i className="bi bi-pencil"></i>
-                            	</button>
-                                <input 
-                                    type="checkbox" 
-                                    checked={!!completedTasks[index]}
-                                    onChange={() => toggleTaskCompletion(index)}
-                                />
-                            </>
-                        )}
+						<>
+							<button onClick={() => saveEditedTask(index)} className="save-button">Save</button>
+							<button onClick={cancelEditing} className="cancel-button">Cancel</button>
+						</>
+					) : (
+						<>
+							<button onClick={() => deleteTask(index)} className="delete-button">
+								<i className="bi bi-trash"></i>
+							</button>
+							<button onClick={() => moveTaskUp(index)} className="move-button">⬆️</button>
+							<button onClick={() => moveTaskDown(index)} className="move-button">⬇️</button>
+							<button onClick={() => editTask(index)} className="edit-button">
+								<i className="bi bi-pencil"></i>
+							</button>
+							<input 
+								type="checkbox" 
+								checked={!!completedTasks[index]}
+								onChange={() => toggleTaskCompletion(index)}
+							/>
+						</>
+					)}
 					</div>
 				</li>
 			))}
