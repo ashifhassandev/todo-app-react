@@ -1,26 +1,26 @@
 import { useEffect } from "react";
 
 const AlertMessage = ({ type, message, onClose }) => {
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			onClose();
-		}, 3000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
 
-		return () => clearTimeout(timer);
-	}, [onClose]);
+    return () => clearTimeout(timer);
+  }, [onClose]);
 
-	const alertTypeClass = {
-		success: "alert-success",
-		error: "alert-error",
-		warning: "alert-warning",
-		info: "alert-info",
-	};
+  const alertTypeClass = {
+    success: "alert-success",
+    error: "alert-error",
+    warning: "alert-warning",
+    info: "alert-info",
+  };
 
-	return (
-		<div className={`alert-message ${alertTypeClass[type]}`}>
-			<p>{message}</p>
-		</div>
-	);
+  return (
+    <div className={`alert-message ${alertTypeClass[type]}`}>
+      <p>{message}</p>
+    </div>
+  );
 };
 
 export default AlertMessage;
