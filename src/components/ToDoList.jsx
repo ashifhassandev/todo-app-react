@@ -1,5 +1,5 @@
 import { useState } from "react";
-import AlertMessage from "./components/AlertMessage";
+import AlertMessage from "./AlertMessage";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const ToDoList = () => {
